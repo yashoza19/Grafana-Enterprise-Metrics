@@ -1,0 +1,510 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  annotations:
+    alm-examples: |-
+      [
+        {
+          "apiVersion": "grafana.com/v1alpha1",
+          "kind": "Grafana",
+          "metadata": {
+            "name": "grafana-sample"
+          },
+          "spec": {
+            "admin": {
+              "existingSecret": "",
+              "passwordKey": "admin-password",
+              "userKey": "admin-user"
+            },
+            "adminUser": "admin",
+            "affinity": {},
+            "autoscaling": {
+              "enabled": false
+            },
+            "containerSecurityContext": {},
+            "dashboardProviders": {},
+            "dashboards": {},
+            "dashboardsConfigMaps": {},
+            "datasources": {},
+            "deploymentStrategy": {
+              "type": "RollingUpdate"
+            },
+            "downloadDashboards": {
+              "env": {},
+              "envFromSecret": "",
+              "resources": {}
+            },
+            "downloadDashboardsImage": {
+              "pullPolicy": "IfNotPresent",
+              "repository": "curlimages/curl",
+              "sha": "",
+              "tag": "7.73.0"
+            },
+            "enableServiceLinks": true,
+            "env": {},
+            "envFromSecret": "",
+            "envFromSecrets": [],
+            "envRenderSecret": {},
+            "envValueFrom": {},
+            "extraConfigmapMounts": [],
+            "extraContainerVolumes": [],
+            "extraContainers": "",
+            "extraEmptyDirMounts": [],
+            "extraExposePorts": [],
+            "extraInitContainers": [],
+            "extraLabels": {},
+            "extraSecretMounts": [],
+            "extraVolumeMounts": [],
+            "grafana.ini": {
+              "analytics": {
+                "check_for_updates": true
+              },
+              "grafana_net": {
+                "url": "https://grafana.net"
+              },
+              "log": {
+                "mode": "console"
+              },
+              "paths": {
+                "data": "/var/lib/grafana/",
+                "logs": "/var/log/grafana",
+                "plugins": "/var/lib/grafana/plugins",
+                "provisioning": "/etc/grafana/provisioning"
+              }
+            },
+            "hostAliases": [],
+            "image": {
+              "pullPolicy": "IfNotPresent",
+              "repository": "grafana/grafana",
+              "sha": "",
+              "tag": "8.1.2"
+            },
+            "imageRenderer": {
+              "enabled": false,
+              "env": {
+                "HTTP_HOST": "0.0.0.0"
+              },
+              "grafanaSubPath": "",
+              "hostAliases": [],
+              "image": {
+                "pullPolicy": "Always",
+                "repository": "grafana/grafana-image-renderer",
+                "sha": "",
+                "tag": "latest"
+              },
+              "networkPolicy": {
+                "limitEgress": false,
+                "limitIngress": true
+              },
+              "podPortName": "http",
+              "priorityClassName": "",
+              "replicas": 1,
+              "resources": {},
+              "revisionHistoryLimit": 10,
+              "securityContext": {},
+              "service": {
+                "enabled": true,
+                "port": 8081,
+                "portName": "http",
+                "targetPort": 8081
+              },
+              "serviceAccountName": ""
+            },
+            "ingress": {
+              "annotations": {},
+              "enabled": false,
+              "extraPaths": [],
+              "hosts": [
+                "chart-example.local"
+              ],
+              "labels": {},
+              "path": "/",
+              "pathType": "Prefix",
+              "tls": []
+            },
+            "initChownData": {
+              "enabled": true,
+              "image": {
+                "pullPolicy": "IfNotPresent",
+                "repository": "busybox",
+                "sha": "",
+                "tag": "1.31.1"
+              },
+              "resources": {}
+            },
+            "ldap": {
+              "config": "",
+              "enabled": false,
+              "existingSecret": ""
+            },
+            "livenessProbe": {
+              "failureThreshold": 10,
+              "httpGet": {
+                "path": "/api/health",
+                "port": 3000
+              },
+              "initialDelaySeconds": 60,
+              "timeoutSeconds": 30
+            },
+            "namespaceOverride": "",
+            "nodeSelector": {},
+            "notifiers": {},
+            "persistence": {
+              "accessModes": [
+                "ReadWriteOnce"
+              ],
+              "enabled": false,
+              "finalizers": [
+                "kubernetes.io/pvc-protection"
+              ],
+              "inMemory": {
+                "enabled": false
+              },
+              "size": "10Gi",
+              "type": "pvc"
+            },
+            "plugins": [],
+            "podDisruptionBudget": {},
+            "podPortName": "grafana",
+            "rbac": {
+              "create": true,
+              "extraClusterRoleRules": [],
+              "extraRoleRules": [],
+              "namespaced": false,
+              "pspEnabled": true,
+              "pspUseAppArmor": true
+            },
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/api/health",
+                "port": 3000
+              }
+            },
+            "replicas": 1,
+            "resources": {},
+            "revisionHistoryLimit": 10,
+            "securityContext": {
+              "fsGroup": 472,
+              "runAsGroup": 472,
+              "runAsUser": 472
+            },
+            "service": {
+              "annotations": {},
+              "enabled": true,
+              "labels": {},
+              "port": 80,
+              "portName": "service",
+              "targetPort": 3000,
+              "type": "ClusterIP"
+            },
+            "serviceAccount": {
+              "autoMount": true,
+              "create": true,
+              "name": null,
+              "nameTest": null
+            },
+            "serviceMonitor": {
+              "enabled": false,
+              "interval": "1m",
+              "labels": {},
+              "path": "/metrics",
+              "relabelings": [],
+              "scheme": "http",
+              "scrapeTimeout": "30s",
+              "tlsConfig": {}
+            },
+            "sidecar": {
+              "dashboards": {
+                "SCProvider": true,
+                "defaultFolderName": null,
+                "enabled": false,
+                "folder": "/tmp/dashboards",
+                "folderAnnotation": null,
+                "label": "grafana_dashboard",
+                "labelValue": null,
+                "provider": {
+                  "allowUiUpdates": false,
+                  "disableDelete": false,
+                  "folder": "",
+                  "foldersFromFilesStructure": false,
+                  "name": "sidecarProvider",
+                  "orgid": 1,
+                  "type": "file"
+                },
+                "resource": "both",
+                "searchNamespace": null
+              },
+              "datasources": {
+                "enabled": false,
+                "label": "grafana_datasource",
+                "labelValue": null,
+                "resource": "both",
+                "searchNamespace": null
+              },
+              "enableUniqueFilenames": false,
+              "image": {
+                "repository": "quay.io/kiwigrid/k8s-sidecar",
+                "sha": "",
+                "tag": "1.12.3"
+              },
+              "imagePullPolicy": "IfNotPresent",
+              "notifiers": {
+                "enabled": false,
+                "label": "grafana_notifier",
+                "resource": "both",
+                "searchNamespace": null
+              },
+              "resources": {}
+            },
+            "smtp": {
+              "existingSecret": "",
+              "passwordKey": "password",
+              "userKey": "user"
+            },
+            "testFramework": {
+              "enabled": true,
+              "image": "bats/bats",
+              "imagePullPolicy": "IfNotPresent",
+              "securityContext": {},
+              "tag": "v1.1.0"
+            },
+            "tolerations": []
+          }
+        }
+      ]
+    capabilities: Basic Install
+    categories: Observability
+    containerImage: docker.io/patrickabrennan/enterprise-metrics-operator:v0.0.1
+    createdAt: ""
+    description: An operator to install Grafana enterprise Metrics (GEM) in OpenShift
+    operators.operatorframework.io/builder: operator-sdk-v1.10.0+git
+    operators.operatorframework.io/project_layout: helm.sdk.operatorframework.io/v1
+    support: Grafana Labs
+  name: enterprise-metrics.v0.0.1
+  namespace: placeholder
+spec:
+  apiservicedefinitions: {}
+  customresourcedefinitions:
+    owned:
+    - kind: Grafana
+      name: grafanas.grafana.com
+      version: v1alpha1
+      displayName: Grafana Enterprise Metrics (GEM) CR
+      description: Grafana Enterprise Metrics (GEM) CR is the representation of a GEM Client deployment on OpenShift cluster.
+      specDescriptors:
+      - displayName: Image Repository
+        description: image repository for GEM image, 'grafana/metrics-enterprise' by default
+        path: image.repository
+        x-descriptors:
+          - 'urn:alm:descriptor:com.tectonic.ui:text'
+          - 'urn:alm:descriptor:com.tectonic.ui:fieldGroup:Image'
+      - displayName: Image Tag
+        description: image version tag for GEM image, 'latest' by default
+        path: image.tag
+        x-descriptors:
+          - 'urn:alm:descriptor:com.tectonic.ui:text'
+          - 'urn:alm:descriptor:com.tectonic.ui:fieldGroup:Image'
+  description: An operator to install Grafana Enterprise Metrics (GEM) on OpenShift
+  displayName: Grafana Enterprise Metrics (GEM) Operator
+  icon:
+  - base64data: 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
+    mediatype: png
+  install:
+    spec:
+      clusterPermissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - namespaces
+          verbs:
+          - get
+        - apiGroups:
+          - ""
+          resources:
+          - secrets
+          verbs:
+          - '*'
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+        - apiGroups:
+          - grafana.com
+          resources:
+          - grafanas
+          - grafanas/status
+          - grafanas/finalizers
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - policy
+          resources:
+          - podsecuritypolicies
+          verbs:
+          - '*'
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - clusterrolebindings
+          - clusterroles
+          verbs:
+          - '*'
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          - secrets
+          - serviceaccounts
+          - services
+          verbs:
+          - '*'
+        - apiGroups:
+          - rbac.authorization.k8s.io
+          resources:
+          - rolebindings
+          - roles
+          verbs:
+          - '*'
+        - apiGroups:
+          - apps
+          resources:
+          - deployments
+          verbs:
+          - '*'
+        - apiGroups:
+          - authentication.k8s.io
+          resources:
+          - tokenreviews
+          verbs:
+          - create
+        - apiGroups:
+          - authorization.k8s.io
+          resources:
+          - subjectaccessreviews
+          verbs:
+          - create
+        serviceAccountName: enterprise-metrics-controller-manager
+      deployments:
+      - name: enterprise-metrics-controller-manager
+        spec:
+          replicas: 1
+          selector:
+            matchLabels:
+              control-plane: controller-manager
+          strategy: {}
+          template:
+            metadata:
+              labels:
+                control-plane: controller-manager
+            spec:
+              containers:
+              - args:
+                - --secure-listen-address=0.0.0.0:8443
+                - --upstream=http://127.0.0.1:8080/
+                - --logtostderr=true
+                - --v=10
+                image: registry.redhat.io/openshift4/ose-kube-rbac-proxy:v4.7.0
+                name: kube-rbac-proxy
+                ports:
+                - containerPort: 8443
+                  name: https
+                  protocol: TCP
+                resources: {}
+              - args:
+                - --health-probe-bind-address=:8081
+                - --metrics-bind-address=127.0.0.1:8080
+                - --leader-elect
+                - --leader-election-id=enterprise-metrics
+                image: docker.io/patrickabrennan/enterprise-metrics-controller:v0.0.1
+                livenessProbe:
+                  httpGet:
+                    path: /healthz
+                    port: 8081
+                  initialDelaySeconds: 15
+                  periodSeconds: 20
+                name: manager
+                readinessProbe:
+                  httpGet:
+                    path: /readyz
+                    port: 8081
+                  initialDelaySeconds: 5
+                  periodSeconds: 10
+                resources:
+                  limits:
+                    cpu: 200m
+                    memory: 1Gi
+                  requests:
+                    cpu: 100m
+                    memory: 60Mi
+                securityContext:
+                  allowPrivilegeEscalation: false
+              securityContext:
+                runAsNonRoot: true
+              serviceAccountName: enterprise-metrics-controller-manager
+              terminationGracePeriodSeconds: 10
+      permissions:
+      - rules:
+        - apiGroups:
+          - ""
+          resources:
+          - configmaps
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - coordination.k8s.io
+          resources:
+          - leases
+          verbs:
+          - get
+          - list
+          - watch
+          - create
+          - update
+          - patch
+          - delete
+        - apiGroups:
+          - ""
+          resources:
+          - events
+          verbs:
+          - create
+          - patch
+        serviceAccountName: enterprise-metrics-controller-manager
+    strategy: deployment
+  installModes:
+  - supported: false
+    type: OwnNamespace
+  - supported: false
+    type: SingleNamespace
+  - supported: false
+    type: MultiNamespace
+  - supported: true
+    type: AllNamespaces
+  keywords:
+  - Grafana Enterprise Metrics
+  - GEM
+  - Metrics
+  - Observability
+  links:
+  - name: Enterprise Metrics
+    url: https://enterprise-metrics.domain
+  maturity: alpha
+  provider:
+    name: Grafana Labs
+    url: https://grafana.com/
+  version: 0.0.1
